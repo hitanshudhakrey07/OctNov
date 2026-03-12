@@ -1,0 +1,7 @@
+
+
+
+
+ejs
+<% %> -> when we are using js in ejs
+<%= %> -> when we arw manuplate date in ejs
