@@ -18,4 +18,4 @@ session_user AS "Original User",
 current_database() As "Active Database",
 inet_client_addr() AS "My IP Address";
 
-
+hello
