@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spice House | Authentic Indian Flavors</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --deep-red: #8B0000;
+            --cream: #FFFDD0;
+            --gold: #D4AF37;
+            --dark: #1a1a1a;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .navbar-brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Header Styling */
+        .navbar {
+            background-color: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 2px solid var(--gold);
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            color: var(--saffron) !important;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--saffron) !important;
+        }
+
+        .dropdown-menu {
+            background-color: var(--dark);
+            border: 1px solid var(--gold);
+            margin-top: 10px;
+        }
+
+        .dropdown-item {
+            color: var(--white);
+            padding: 10px 20px;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--saffron);
+            color: var(--white);
+            padding-left: 25px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 85vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 0;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: var(--saffron);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+        }
+
+        /* Menu Card Styling */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--deep-red);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: var(--gold);
+            bottom: 0;
+            left: 20%;
+        }
+
+        .menu-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--white);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.15);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .menu-card:hover .card-img-top {
+            transform: scale(1.1);
+        }
+
+        .price-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--saffron);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .dish-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .spice-selector {
+            background: var(--light-gray);
+            padding: 10px;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--deep-red);
+            border-color: var(--deep-red);
+        }
+
+        .btn-spice {
+            background-color: var(--deep-red);
+            color: var(--white);
+            border: 2px solid var(--deep-red);
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-spice:hover {
+            background-color: transparent;
+            color: var(--deep-red);
+        }
+
+        /* Offers & Progress Bar */
+        .offer-section {
+            background-color: var(--cream);
+            padding: 80px 0;
+            border-top: 1px solid var(--gold);
+        }
+
+        .progress-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .progress {
+            height: 35px;
+            background-color: #e9ecef;
+            border-radius: 20px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            background: linear-gradient(45deg, var(--saffron), var(--gold));
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* Reservation Section */
+        .reservation-section {
+            background-color: var(--white);
+            padding: 100px 0;
+        }
+
+        .reservation-card {
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            background: var(--white);
+            border-top: 8px solid var(--saffron);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 80px 0 30px;
+        }
+
+        .footer-heading {
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a:hover {
+            color: var(--saffron);
+            transform: translateX(5px);
+        }
+
+        .social-icons a {
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-right: 15px;
+            background: rgba(255,255,255,0.1);
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--saffron);
+            color: var(--white);
+            transform: translateY(-5px);
+        }
+
+        /* Loading Spinner */
+        .spinner-border {
+            display: none;
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .loading .spinner-border {
+            display: inline-block;
+        }
+
+        @media (max-width: 991px) {
+            .hero-title { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER SECTION -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fa-solid fa-fire-burner me-2"></i>SPICE HOUSE
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuDropdown" role="button" data-bs-toggle="dropdown">Menu</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#menu">Vegetarian Dishes</a></li>
+                                <li><a class="dropdown-item" href="#menu">Non-Vegetarian Dishes</a></li>
+                                <li><a class="dropdown-item" href="#menu">Breads & Rice</a></li>
+                                <li><a class="dropdown-item" href="#menu">Desserts</a></li>
+                                <li><a class="dropdown-item" href="#menu">Beverages</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#offers">Offers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#reservation">Reservation</a></li>
+                        <li class="nav-item ms-lg-4">
+                            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 1. HERO SECTION -->
+        <section id="home" class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Authentic Indian Flavors</h1>
+                <p class="lead mb-5 text-light opacity-75">A symphony of spices, tradition, and culinary excellence.</p>
+                <button class="btn btn-lg btn-spice px-5 py-3 rounded-pill js-btn-spinner mx-auto" style="max-width: 250px;">
+                    <span class="spinner-border" role="status"></span>
+                    Order Now
+                </button>
+            </div>
+        </section>
+
+        <!-- 2. POPULAR DISHES SECTION -->
+        <section id="menu" class="py-5 bg-light">
+            <div class="container py-5">
+                <div class="section-title">
+                    <p class="text-saffron fw-bold mb-0">CULINARY DELIGHTS</p>
+                    <h2>Our Popular Dishes</h2>
+                </div>
+                
+                <div class="row g-4">
+                    <!-- Dish 1: Butter Chicken -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800" class="card-img-top" alt="Butter Chicken">
+                                <span class="price-badge">$18.99</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="dish-name">Butter Chicken</h4>
+                                <p class="text-muted small">Tender tandoori chicken simmered in a velvet tomato cream gravy.</p>
+                                
+                                <div class="spice-selector">
+                                    <span class="small fw-bold d-block mb-2">Select Spice Level:</span>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice1" id="m1" checked>
+                                            <label class="form-check-label small" for="m1">Mild</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice1" id="me1">
+                                            <label class="form-check-label small" for="me1">Medium</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice1" id="h1">
+                                            <label class="form-check-label small" for="h1">Hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="spec1">
+                                    <label class="form-check-label small" for="spec1">Add to Tandoori Special</label>
+                                </div>
+
+                                <button class="btn btn-spice js-btn-spinner">
+                                    <span class="spinner-border" role="status"></span>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dish 2: Paneer Tikka -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1567184109191-3776117ddcbf?auto=format&fit=crop&q=80&w=800" class="card-img-top" alt="Paneer Tikka">
+                                <span class="price-badge">$15.50</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="dish-name">Paneer Tikka</h4>
+                                <p class="text-muted small">Home-made cottage cheese marinated with yogurt and yellow chilies.</p>
+                                
+                                <div class="spice-selector">
+                                    <span class="small fw-bold d-block mb-2">Select Spice Level:</span>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice2" id="m2">
+                                            <label class="form-check-label small" for="m2">Mild</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice2" id="me2" checked>
+                                            <label class="form-check-label small" for="me2">Medium</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice2" id="h2">
+                                            <label class="form-check-label small" for="h2">Hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="spec2">
+                                    <label class="form-check-label small" for="spec2">Add to Tandoori Special</label>
+                                </div>
+
+                                <button class="btn btn-spice js-btn-spinner">
+                                    <span class="spinner-border" role="status"></span>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dish 3: Lamb Biryani -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=800" class="card-img-top" alt="Lamb Biryani">
+                                <span class="price-badge">$22.00</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="dish-name">Lamb Biryani</h4>
+                                <p class="text-muted small">Aromatic Basmati rice cooked with succulent lamb and saffron.</p>
+                                
+                                <div class="spice-selector">
+                                    <span class="small fw-bold d-block mb-2">Select Spice Level:</span>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice3" id="m3">
+                                            <label class="form-check-label small" for="m3">Mild</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice3" id="me3">
+                                            <label class="form-check-label small" for="me3">Medium</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice3" id="h3" checked>
+                                            <label class="form-check-label small" for="h3">Hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="spec3">
+                                    <label class="form-check-label small" for="spec3">Add to Tandoori Special</label>
+                                </div>
+
+                                <button class="btn btn-spice js-btn-spinner">
+                                    <span class="spinner-border" role="status"></span>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dish 4: Palak Paneer -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1601050633647-8f8f1f3bb719?auto=format&fit=crop&q=80&w=800" class="card-img-top" alt="Palak Paneer">
+                                <span class="price-badge">$14.99</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="dish-name">Palak Paneer</h4>
+                                <p class="text-muted small">Fresh spinach purée cooked with cubes of cottage cheese.</p>
+                                
+                                <div class="spice-selector">
+                                    <span class="small fw-bold d-block mb-2">Select Spice Level:</span>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice4" id="m4" checked>
+                                            <label class="form-check-label small" for="m4">Mild</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice4" id="me4">
+                                            <label class="form-check-label small" for="me4">Medium</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice4" id="h4">
+                                            <label class="form-check-label small" for="h4">Hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="spec4">
+                                    <label class="form-check-label small" for="spec4">Add to Tandoori Special</label>
+                                </div>
+
+                                <button class="btn btn-spice js-btn-spinner">
+                                    <span class="spinner-border" role="status"></span>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dish 5: Garlic Naan -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&q=80&w=800" class="card-img-top" alt="Garlic Naan">
+                                <span class="price-badge">$4.50</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="dish-name">Garlic Naan</h4>
+                                <p class="text-muted small">Traditional white flour leavened bread with fresh garlic and cilantro.</p>
+                                
+                                <div class="spice-selector">
+                                    <span class="small fw-bold d-block mb-2">Butter Level:</span>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice5" id="m5">
+                                            <label class="form-check-label small" for="m5">Plain</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice5" id="me5" checked>
+                                            <label class="form-check-label small" for="me5">Butter</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice5" id="h5">
+                                            <label class="form-check-label small" for="h5">Extra</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="spec5">
+                                    <label class="form-check-label small" for="spec5">Add to Tandoori Special</label>
+                                </div>
+
+                                <button class="btn btn-spice js-btn-spinner">
+                                    <span class="spinner-border" role="status"></span>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dish 6: Chicken Tikka Masala -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=800" class="card-img-top" alt="Chicken Tikka Masala">
+                                <span class="price-badge">$19.50</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="dish-name">Chicken Tikka Masala</h4>
+                                <p class="text-muted small">Boneless chicken chunks grilled and cooked in a spiced tomato-onion sauce.</p>
+                                
+                                <div class="spice-selector">
+                                    <span class="small fw-bold d-block mb-2">Select Spice Level:</span>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice6" id="m6">
+                                            <label class="form-check-label small" for="m6">Mild</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice6" id="me6" checked>
+                                            <label class="form-check-label small" for="me6">Medium</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spice6" id="h6">
+                                            <label class="form-check-label small" for="h6">Hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="spec6">
+                                    <label class="form-check-label small" for="spec6">Add to Tandoori Special</label>
+                                </div>
+
+                                <button class="btn btn-spice js-btn-spinner">
+                                    <span class="spinner-border" role="status"></span>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SPECIAL OFFERS SECTION -->
+        <section id="offers" class="offer-section">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-6 fw-bold mb-4" style="color: var(--deep-red);">Exclusive Deals</h2>
+                        <div class="progress-container mb-4">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated w-75" role="progressbar">
+                                    Limited Time Offer – 50% Off on First Order
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mb-4 text-muted">Claim your exclusive discount now. Applicable on your first order placed via our website.</p>
+                        <button class="btn btn-spice btn-lg px-5 py-3 rounded-pill js-btn-spinner mx-auto" style="max-width: 280px;">
+                            <span class="spinner-border" role="status"></span>
+                            Claim Offer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. RESERVATION FORM SECTION -->
+        <section id="reservation" class="reservation-section">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-5">
+                        <h2 class="display-4 fw-bold mb-4">Make a Reservation</h2>
+                        <p class="text-muted fs-5">Join us for a magical evening of authentic Indian flavors and hospitality. For parties over 8, please call us directly.</p>
+                        <div class="mt-5">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-saffron p-3 rounded-circle me-3 text-white"><i class="bi bi-telephone-outbound"></i></div>
+                                <div>
+                                    <p class="mb-0 small text-uppercase fw-bold text-muted">Phone Number</p>
+                                    <h5 class="mb-0">+1 (555) 987-6543</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card reservation-card p-4 p-md-5">
+                            <form id="resForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Full Name</label>
+                                        <input type="text" class="form-control py-2" placeholder="Enter your name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Email Address</label>
+                                        <input type="email" class="form-control py-2" placeholder="email@example.com" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Phone</label>
+                                        <input type="tel" class="form-control py-2" placeholder="+1..." required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Date</label>
+                                        <input type="date" class="form-control py-2" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Time</label>
+                                        <input type="time" class="form-control py-2" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Guests</label>
+                                        <select class="form-select py-2">
+                                            <option>2 People</option>
+                                            <option>4 People</option>
+                                            <option>6 People</option>
+                                            <option>8+ People</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <label class="form-label d-block small fw-bold mb-3">Dining Preference</label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="pref" id="din" checked>
+                                            <label class="form-check-label" for="din">Dine-in</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="pref" id="tak">
+                                            <label class="form-check-label" for="tak">Takeaway</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="pref" id="del">
+                                            <label class="form-check-label" for="del">Delivery</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="newsletter" checked>
+                                            <label class="form-check-label small" for="newsletter">I want to receive special offers via email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <button type="submit" class="btn btn-spice py-3 js-btn-spinner">
+                                            <span class="spinner-border" role="status"></span>
+                                            Confirm Booking
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer>
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-lg-4">
+                    <h5 class="footer-heading">Developer Profile</h5>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-saffron rounded-circle p-2 me-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-person-fill fs-3"></i>
+                        </div>
+                        <div>
+                            <p class="mb-0 fw-bold">Hitanshu Dhakrey</p>
+                            <p class="mb-0 text-muted small">Full Stack UI/UX Designer</p>
+                        </div>
+                    </div>
+                    <p class="text-muted small mb-4">Crafting high-performance web experiences with attention to cultural detail and modern standards.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-github"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <h5 class="footer-heading">Important Links</h5>
+                    <div class="row footer-links">
+                        <div class="col-6">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Use</a>
+                            <a href="#">Careers</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="#">FAQs</a>
+                            <a href="#">Contact Us</a>
+                            <a href="#">Nutrition Info</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <h5 class="footer-heading">Sitemap</h5>
+                    <div class="row footer-links">
+                        <div class="col-6">
+                            <a href="#home">Home</a>
+                            <a href="#menu">Menu</a>
+                            <a href="#offers">Special Offers</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="#reservation">Reservations</a>
+                            <a href="#">Gallery</a>
+                            <a href="#">Guest Reviews</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5 pt-4 border-top border-secondary">
+                <p class="mb-0 small text-muted">&copy; 2024 Spice House Indian Cuisine. Built with passion and spice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Spinner functionality (1.5s simulated loading)
+            const spinnerButtons = document.querySelectorAll('.js-btn-spinner');
+            
+            spinnerButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    if(button.closest('form')) {
+                        e.preventDefault(); // Simulate form action
+                    }
+                    
+                    button.classList.add('loading');
+                    button.disabled = true;
+                    const originalHTML = button.innerHTML;
+
+                    setTimeout(() => {
+                        button.classList.remove('loading');
+                        button.disabled = false;
+                        
+                        // Action visual confirmation
+                        if(button.innerHTML.toLowerCase().includes('cart')) {
+                            button.innerHTML = '<i class="bi bi-check-lg me-2"></i> Added!';
+                            button.classList.replace('btn-spice', 'btn-success');
+                            setTimeout(() => {
+                                button.innerHTML = originalHTML;
+                                button.classList.replace('btn-success', 'btn-spice');
+                            }, 1500);
+                        } else if(button.innerHTML.toLowerCase().includes('booking') || button.innerHTML.toLowerCase().includes('claim')) {
+                            button.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i> Success!';
+                            setTimeout(() => { button.innerHTML = originalHTML; }, 2000);
+                        }
+                    }, 1500);
+                });
+            });
+
+            // Sticky Navbar color change
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    nav.style.backgroundColor = 'rgba(20, 20, 20, 0.98)';
+                    nav.style.padding = '8px 0';
+                } else {
+                    nav.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
+                    nav.style.padding = '15px 0';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
