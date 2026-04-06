@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spice House | Authentic Indian Flavors</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --deep-red: #8B0000;
+            --cream: #FFFDD0;
+            --gold: #D4AF37;
+            --dark: #0a0a0a;
+            --dark-accent: #1a1a1a;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--dark);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            font-size: 0.92rem;
+        }
+
+        h1, h2, h3, .navbar-brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- UPDATED ANIMATIONS (2s TRANSITION) --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            /* Updated transition time to 2 seconds as requested */
+            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- MARQUEE --- */
+        .promo-marquee {
+            background: linear-gradient(90deg, var(--deep-red), #b30000);
+            color: var(--white);
+            padding: 6px 0;
+            font-size: 0.72rem;
+            font-weight: 500;
+            overflow: hidden;
+            white-space: nowrap;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            letter-spacing: 0.5px;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background: rgba(10, 10, 10, 0.8) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            border-bottom: 1px solid var(--glass-border);
+            padding: 12px 0;
+            top: 28px;
+        }
+
+        .navbar.scrolled {
+            padding: 6px 0;
+            background: rgba(0, 0, 0, 0.95) !important;
+            top: 0;
+        }
+
+        .navbar-brand {
+            color: var(--saffron) !important;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            margin: 0 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0.85;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover { opacity: 1; color: var(--saffron) !important; }
+
+        /* --- HERO --- */
+        .hero-carousel .carousel-item {
+            height: 70vh;
+            min-height: 480px;
+            background-color: #000;
+        }
+
+        .carousel-caption {
+            bottom: 25%;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            max-width: 700px;
+            margin: 0 auto;
+            /* Syncing Hero entry with 2s transition feel */
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            color: var(--saffron);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        /* --- MENU CARDS --- */
+        .menu-card {
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.12);
+        }
+
+        .card-img-wrapper { height: 190px; overflow: hidden; position: relative; }
+        .card-img-top { transition: transform 0.8s ease; }
+        .menu-card:hover .card-img-top { transform: scale(1.1); }
+
+        .price-badge {
+            background: var(--saffron);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* --- ASIDE OFFER --- */
+        .sticky-offer-aside {
+            position: fixed;
+            right: -250px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 280px;
+            z-index: 1500;
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .sticky-offer-aside.active { right: 20px; }
+
+        .aside-content {
+            background: linear-gradient(135deg, var(--deep-red), #5e0000);
+            backdrop-filter: blur(15px);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .aside-toggle {
+            position: absolute;
+            left: -45px;
+            top: 20px;
+            background: var(--deep-red);
+            color: white;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px 0 0 12px;
+            cursor: pointer;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- ULTIMATE FOOTER --- */
+        .premium-footer {
+            background: var(--dark);
+            color: #ccc;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+            border-top: 3px solid var(--saffron);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--saffron);
+            font-weight: 900;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-heading {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 30px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .footer-link {
+            display: block;
+            color: #999;
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .footer-link:hover {
+            color: var(--saffron);
+            transform: translateX(5px);
+        }
+
+        .footer-newsletter {
+            background: var(--dark-accent);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .newsletter-input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+        }
+
+        .newsletter-input:focus {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--saffron);
+            box-shadow: none;
+            color: white;
+        }
+
+        .social-circle {
+            width: 38px;
+            height: 38px;
+            background: var(--dark-accent);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s;
+            border: 1px solid var(--glass-border);
+        }
+
+        .social-circle:hover {
+            background: var(--saffron);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            background: #050505;
+            padding: 20px 0;
+            margin-top: 60px;
+            font-size: 0.75rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* --- UTILS --- */
+        .btn-spice {
+            background: var(--deep-red);
+            color: white;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+        .btn-spice:hover { background: #b30000; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139,0,0,0.3); }
+        
+        .loading .spinner-border { display: inline-block !important; }
+    </style>
+</head>
+<body>
+
+    <!-- 0. MARQUEE ANNOUNCEMENT -->
+    <div class="promo-marquee">
+        <div class="marquee-content">
+            🎉 SPECIAL OFFER: GET 20% OFF ON ALL TAKEAWAY ORDERS ABOVE $50 • 🌶️ TRY OUR NEW 'GHOST CHILI VINDALOO' - ONLY FOR THE BRAVE! • 🍛 WEEKEND BUFFET IS BACK AT $29.99 PER PERSON • 🥗 VEGAN OPTIONS NOW AVAILABLE IN ALL CATEGORIES • 🎉
+        </div>
+    </div>
+
+    <!-- 1. STICKY ASIDE OFFER -->
+    <aside class="sticky-offer-aside" id="offerAside">
+        <div class="aside-toggle" id="asideToggle">
+            <i class="bi bi-gift-fill fs-5"></i>
+        </div>
+        <div class="aside-content">
+            <h6 class="fw-bold mb-1" style="color: var(--saffron);">Weekend Special</h6>
+            <p class="small opacity-75 mb-3">Claim a free appetizer on all orders over $35 today!</p>
+            <button class="btn btn-warning btn-sm w-100 fw-bold rounded-pill">REDEEM CODE</button>
+        </div>
+    </aside>
+
+    <!-- HEADER SECTION -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fa-solid fa-fire-burner me-2"></i>SPICE HOUSE
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#reservation">Reservations</a></li>
+                        <li class="nav-item ms-lg-3">
+                            <button class="btn btn-outline-warning btn-sm px-3 rounded-pill">Login</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section id="home">
+            <div id="heroCarousel" class="carousel slide hero-carousel carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=2070'); background-size: cover; background-position: center; height: 100%;"></div>
+                        <div class="carousel-caption">
+                            <h1 class="hero-title">Beyond Flavour</h1>
+                            <p class="small mb-4 opacity-90">A journey through the royal kitchens of India, brought to your table with contemporary elegance.</p>
+                            <a href="#menu" class="btn btn-spice px-4 py-2">Discover The Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENU SECTION -->
+        <section id="menu" class="py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-5 reveal">
+                    <span class="text-saffron fw-bold small text-uppercase letter-spacing-1">Signature Selection</span>
+                    <h2 class="display-6 fw-bold mt-1">Culinary Masterpieces</h2>
+                    <div class="mx-auto mt-2" style="width: 50px; height: 3px; background: var(--gold);"></div>
+                </div>
+                
+                <div class="row g-4">
+                    <!-- Item 1 -->
+                    <div class="col-md-4 reveal">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800" class="card-img-top w-100 h-100 object-fit-cover" alt="Butter Chicken">
+                                <div class="position-absolute top-0 end-0 p-3">
+                                    <span class="price-badge shadow">$18</span>
+                                </div>
+                            </div>
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold">Classic Butter Chicken</h5>
+                                <p class="text-muted small">Murg Makhani: Char-grilled chicken in a creamy tomato-silk gravy.</p>
+                                <button class="btn btn-spice w-100 js-btn-spinner">
+                                    <span class="spinner-border spinner-border-sm d-none"></span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="col-md-4 reveal">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1567184109191-3776117ddcbf?auto=format&fit=crop&q=80&w=800" class="card-img-top w-100 h-100 object-fit-cover" alt="Paneer Tikka">
+                                <div class="position-absolute top-0 end-0 p-3">
+                                    <span class="price-badge shadow">$16</span>
+                                </div>
+                            </div>
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold">Paneer Malai Tikka</h5>
+                                <p class="text-muted small">Cottage cheese marinated in cashew paste and green cardamom.</p>
+                                <button class="btn btn-spice w-100 js-btn-spinner">
+                                    <span class="spinner-border spinner-border-sm d-none"></span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="col-md-4 reveal">
+                        <div class="menu-card">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=800" class="card-img-top w-100 h-100 object-fit-cover" alt="Biryani">
+                                <div class="position-absolute top-0 end-0 p-3">
+                                    <span class="price-badge shadow">$22</span>
+                                </div>
+                            </div>
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold">Awadhi Dum Biryani</h5>
+                                <p class="text-muted small">Fragrant long-grain basmati rice layered with spiced lamb.</p>
+                                <button class="btn btn-spice w-100 js-btn-spinner">
+                                    <span class="spinner-border spinner-border-sm d-none"></span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESERVATION -->
+        <section id="reservation" class="py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 reveal">
+                        <h2 class="display-5 fw-bold mb-4">Make a <span class="text-saffron">Reservation</span></h2>
+                        <p class="text-muted mb-4">Secure your spot for an unforgettable dining experience. For groups larger than 10, please call us directly.</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center"><i class="bi bi-clock text-saffron me-3 fs-4"></i> <div><strong>Opening Hours</strong><br><small>Tue-Sun: 12:00 PM - 10:30 PM</small></div></li>
+                            <li class="mb-3 d-flex align-items-center"><i class="bi bi-geo-alt text-saffron me-3 fs-4"></i> <div><strong>Location</strong><br><small>123 Spice Route, Gourmet District, NY</small></div></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-7 reveal">
+                        <div class="card border-0 shadow-lg p-4 p-md-5 rounded-4" style="background: #fff;">
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6"><input type="text" class="form-control py-2" placeholder="Your Name"></div>
+                                    <div class="col-md-6"><input type="email" class="form-control py-2" placeholder="Email Address"></div>
+                                    <div class="col-md-6"><input type="date" class="form-control py-2"></div>
+                                    <div class="col-md-6">
+                                        <select class="form-select py-2">
+                                            <option>2 Guests</option>
+                                            <option>4 Guests</option>
+                                            <option>8 Guests</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12"><button class="btn btn-spice w-100 py-3 mt-2 js-btn-spinner">Reserve My Table</button></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ULTIMATE PREMIUM FOOTER -->
+    <footer class="premium-footer">
+        <div class="container">
+            <div class="row gy-5">
+                <!-- Branding & Social -->
+                <div class="col-lg-4 reveal">
+                    <a href="#" class="footer-logo">SPICE HOUSE</a>
+                    <p class="small mb-4 pe-lg-5">Crafting stories through spices since 1998. We bring the authentic soul of India to your plate with a modern twist.</p>
+                    <div class="d-flex">
+                        <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-circle"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-circle"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-6 col-lg-2 reveal">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <nav>
+                        <a href="#home" class="footer-link">Home</a>
+                        <a href="#menu" class="footer-link">Menu</a>
+                        <a href="#reservation" class="footer-link">Reservations</a>
+                        <a href="#" class="footer-link">Gift Cards</a>
+                        <a href="#" class="footer-link">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Legal/Support -->
+                <div class="col-6 col-lg-2 reveal">
+                    <h5 class="footer-heading">Support</h5>
+                    <nav>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Use</a>
+                        <a href="#" class="footer-link">FAQ</a>
+                        <a href="#" class="footer-link">Track Order</a>
+                        <a href="#" class="footer-link">Carrers</a>
+                    </nav>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="col-lg-4 reveal">
+                    <div class="footer-newsletter">
+                        <h5 class="footer-heading">Join The Spice Club</h5>
+                        <p class="small opacity-75 mb-3">Subscribe for secret recipes and exclusive member offers.</p>
+                        <form class="d-flex flex-column gap-2">
+                            <input type="email" class="form-control newsletter-input" placeholder="Your Email Address">
+                            <button class="btn btn-spice w-100 js-btn-spinner">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Bottom Bar -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="opacity-50">&copy; 2024 Spice House Restaurant Group. All rights reserved.</span>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <span class="opacity-50">Designed with ❤️ by Aarav Sharma | Luxury Hospitality Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Reveal Logic
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => observer.observe(el));
+
+            // Aside Toggle
+            const aside = document.getElementById('offerAside');
+            const asideToggle = document.getElementById('asideToggle');
+            asideToggle.addEventListener('click', () => aside.classList.toggle('active'));
+
+            // Navbar Scrolled Effect
+            const nav = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) nav.classList.add('scrolled');
+                else nav.classList.remove('scrolled');
+            });
+
+            // Action Spinner Buttons
+            const spinnerButtons = document.querySelectorAll('.js-btn-spinner');
+            spinnerButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    button.classList.add('loading');
+                    const spinner = button.querySelector('.spinner-border');
+                    if(spinner) spinner.classList.remove('d-none');
+                    
+                    button.disabled = true;
+                    setTimeout(() => {
+                        button.classList.remove('loading');
+                        if(spinner) spinner.classList.add('d-none');
+                        button.disabled = false;
+                        button.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i> Success';
+                        button.style.backgroundColor = '#28a745';
+                    }, 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
